@@ -8,7 +8,8 @@ const config: Config = {
   ],
   theme: {
     colors: {
-      white: "hsl(0, 0 %, 100 %)",
+      transparent: "transparent",
+      white: "hsl(0, 0%, 100%)",
       blue: {
         marine: "hsl(213, 96%, 18%)",
         purplish: "hsl(243, 100%, 62%)",
@@ -26,6 +27,10 @@ const config: Config = {
       alabaster: "hsl(231, 100%, 99%)",
     },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-ubuntu)"],
+      },
+
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

@@ -3,8 +3,9 @@ import { Ubuntu } from "next/font/google";
 import "./globals.css";
 
 const ubuntu = Ubuntu({
-  subsets: ["latin"],
   weight: ["400", "500", "700"],
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -19,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={(ubuntu.className, "bg-magnolia text-blue-marine")}>
+    <html lang="en" className={ubuntu.className}>
+      <body className={"bg-magnolia font-sans text-blue-marine"}>
         {children}
       </body>
     </html>
