@@ -23,10 +23,12 @@ export default function Home() {
             </div>
           ))}
         </div>
-        {step === 1 && <Step1 />}
-        {step === 2 && <div>Step 2</div>}
-        {step === 3 && <div>Step 3</div>}
-        {step === 4 && <div>Step 4</div>}
+        <div className={"mx-4 rounded-lg bg-white p-6"}>
+          {step === 1 && <Step1 />}
+          {step === 2 && <div>Step 2</div>}
+          {step === 3 && <div>Step 3</div>}
+          {step === 4 && <div>Step 4</div>}
+        </div>
         {step < 5 && (
           <footer
             className={
