@@ -4,9 +4,10 @@ import Step1 from "./step-1";
 import Step2 from "./step-2";
 import Step3 from "./step-3";
 import Step4 from "./step-4";
+import Step5 from "./step-5";
 
 export default function Home() {
-  const [step, setStep] = useState(4);
+  const [step, setStep] = useState(1);
 
   return (
     <main className="h-screen bg-[url('/images/bg-sidebar-mobile.svg')] bg-contain bg-no-repeat">
@@ -26,11 +27,14 @@ export default function Home() {
             </div>
           ))}
         </div>
-        <div className={"mx-4 rounded-lg bg-white p-6 shadow-lg"}>
+        <div
+          className={"mx-4 rounded-lg bg-white p-6 shadow-xl shadow-gray-light"}
+        >
           {step === 1 && <Step1 />}
           {step === 2 && <Step2 />}
           {step === 3 && <Step3 />}
           {step === 4 && <Step4 />}
+          {step === 5 && <Step5 />}
         </div>
         {step < 5 && (
           <footer
@@ -49,7 +53,9 @@ export default function Home() {
             )}
             {step < 5 && (
               <div
-                className="inline-block cursor-pointer rounded-lg bg-blue-purplish p-3 px-5 font-normal text-white"
+                className={`${
+                  step < 4 ? "bg-blue-marine" : "bg-blue-purplish"
+                } inline-block cursor-pointer rounded-lg p-3 px-5 font-medium text-white`}
                 onClick={() => setStep(step + 1)}
               >
                 {step === 4 ? "Confirm" : "Next Step"}
