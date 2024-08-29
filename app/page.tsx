@@ -1,10 +1,11 @@
 "use client";
 import { useState } from "react";
 import Step1 from "./step-1";
-import Image from "next/image";
 import Step2 from "./step-2";
+import Step3 from "./step-3";
+
 export default function Home() {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(3);
 
   return (
     <main className="h-screen bg-[url('/images/bg-sidebar-mobile.svg')] bg-contain bg-no-repeat">
@@ -27,7 +28,7 @@ export default function Home() {
         <div className={"mx-4 rounded-lg bg-white p-6"}>
           {step === 1 && <Step1 />}
           {step === 2 && <Step2 />}
-          {step === 3 && <div>Step 3</div>}
+          {step === 3 && <Step3 />}
           {step === 4 && <div>Step 4</div>}
         </div>
         {step < 5 && (

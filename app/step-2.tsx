@@ -27,7 +27,7 @@ export default function Step2() {
   ];
 
   return (
-    <div id="#step-2">
+    <div id="step-2">
       <h1 className="text-2xl font-bold text-blue-marine">Select your plan</h1>
       <p className="mt-3 text-base text-gray-cool">
         You have the option of monthly or yearly billing.
