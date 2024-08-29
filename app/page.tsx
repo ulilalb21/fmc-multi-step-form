@@ -2,12 +2,13 @@
 import { useState } from "react";
 import Step1 from "./step-1";
 import Image from "next/image";
+import Step2 from "./step-2";
 export default function Home() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(2);
 
   return (
     <main className="h-screen bg-[url('/images/bg-sidebar-mobile.svg')] bg-contain bg-no-repeat">
-      <div className="relative ">
+      <div className="relative pb-24">
         <div className="mb-10 flex items-center justify-center gap-4 pt-10">
           {Array.from({ length: 4 }, (_, i) => (
             <div
@@ -25,7 +26,7 @@ export default function Home() {
         </div>
         <div className={"mx-4 rounded-lg bg-white p-6"}>
           {step === 1 && <Step1 />}
-          {step === 2 && <div>Step 2</div>}
+          {step === 2 && <Step2 />}
           {step === 3 && <div>Step 3</div>}
           {step === 4 && <div>Step 4</div>}
         </div>

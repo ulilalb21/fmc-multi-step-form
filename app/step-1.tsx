@@ -10,7 +10,7 @@ export default function Step1() {
       </p>
       <div className="mt-6 grid w-full items-center gap-1.5">
         <Label htmlFor="name">Name</Label>
-        <Input type="text" id="name" placeholder="e.g Stephen King" disabled />
+        <Input type="text" id="name" placeholder="e.g Stephen King" />
       </div>
       <div className="mt-6 grid w-full items-center gap-1.5">
         <Label htmlFor="name">Email Address</Label>
