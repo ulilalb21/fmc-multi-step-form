@@ -3,9 +3,10 @@ import { useState } from "react";
 import Step1 from "./step-1";
 import Step2 from "./step-2";
 import Step3 from "./step-3";
+import Step4 from "./step-4";
 
 export default function Home() {
-  const [step, setStep] = useState(3);
+  const [step, setStep] = useState(4);
 
   return (
     <main className="h-screen bg-[url('/images/bg-sidebar-mobile.svg')] bg-contain bg-no-repeat">
@@ -25,11 +26,11 @@ export default function Home() {
             </div>
           ))}
         </div>
-        <div className={"mx-4 rounded-lg bg-white p-6"}>
+        <div className={"mx-4 rounded-lg bg-white p-6 shadow-lg"}>
           {step === 1 && <Step1 />}
           {step === 2 && <Step2 />}
           {step === 3 && <Step3 />}
-          {step === 4 && <div>Step 4</div>}
+          {step === 4 && <Step4 />}
         </div>
         {step < 5 && (
           <footer
@@ -48,7 +49,7 @@ export default function Home() {
             )}
             {step < 5 && (
               <div
-                className="inline-block cursor-pointer rounded-lg bg-blue-marine p-3 px-5 font-normal text-white"
+                className="inline-block cursor-pointer rounded-lg bg-blue-purplish p-3 px-5 font-normal text-white"
                 onClick={() => setStep(step + 1)}
               >
                 {step === 4 ? "Confirm" : "Next Step"}
