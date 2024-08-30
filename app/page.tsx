@@ -5,9 +5,89 @@ import Step2 from "./step-2";
 import Step3 from "./step-3";
 import Step4 from "./step-4";
 import Step5 from "./step-5";
+import { set, useForm } from "react-hook-form";
 
 export default function Home() {
   const [step, setStep] = useState(1);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [errors, setErrors] = useState({
+    name: false,
+    email: false,
+    phone: false,
+  });
+
+  const [selectedBilling, setSelectedBilling] = useState<Billing>("monthly");
+  const [selectedPlan, setSelectedPlan] = useState<{
+    value: Plan;
+    amount: number;
+  }>({
+    value: "arcade",
+    amount: 9,
+  });
+  const [selectedAddOns, setSelectedAddOns] = useState<
+    {
+      value: string;
+      amount: number;
+    }[]
+  >([]);
+
+  const addOnsSelections = [
+    {
+      value: "online-service",
+      name: "Online service",
+      description: "Access to multiplayer games",
+      yearly: 10,
+      monthly: 1,
+    },
+    {
+      value: "larger-storage",
+      name: "Larger storage",
+      description: "Extra 1TB of cloud save",
+      yearly: 20,
+      monthly: 2,
+    },
+    {
+      value: "customizable-profile",
+      name: "Customizable profile",
+      description: "Custom theme on your profile",
+      yearly: 20,
+      monthly: 2,
+    },
+  ];
+
+  function handleNextStep(): void {
+    if (step === 1) {
+      if (name === "" || email === "" || phone === "") {
+        setErrors({
+          name: name === "",
+          email: email === "",
+          phone: phone === "",
+        });
+        return;
+      }
+    }
+    setStep(step + 1);
+  }
+
+  function handleFormChange(key: string, value: string): void {
+    switch (key) {
+      case "name":
+        setName(value);
+        setErrors({ ...errors, name: value === "" });
+        break;
+      case "email":
+        setEmail(value);
+        setErrors({ ...errors, email: value === "" });
+        break;
+      case "phone":
+        setPhone(value);
+        setErrors({ ...errors, phone: value === "" });
+        break;
+    }
+  }
 
   return (
     <main className="h-screen bg-[url('/images/bg-sidebar-mobile.svg')] bg-contain bg-no-repeat">
@@ -30,10 +110,38 @@ export default function Home() {
         <div
           className={"mx-4 rounded-lg bg-white p-6 shadow-xl shadow-gray-light"}
         >
-          {step === 1 && <Step1 />}
-          {step === 2 && <Step2 />}
-          {step === 3 && <Step3 />}
-          {step === 4 && <Step4 />}
+          {step === 1 && (
+            <Step1
+              errors={errors}
+              onFormChange={handleFormChange}
+              userData={{ name, email, phone }}
+            />
+          )}
+          {step === 2 && (
+            <Step2
+              selectedBilling={selectedBilling}
+              selectedPlan={selectedPlan}
+              setSelectedBilling={setSelectedBilling}
+              setSelectedPlan={setSelectedPlan}
+            />
+          )}
+          {step === 3 && (
+            <Step3
+              selectedAddOns={selectedAddOns}
+              selectedBilling={selectedBilling}
+              setSelectedAddOns={setSelectedAddOns}
+              addOnsSelections={addOnsSelections}
+            />
+          )}
+          {step === 4 && (
+            <Step4
+              selectedBilling={selectedBilling}
+              selectedPlan={selectedPlan}
+              selectedAddOns={selectedAddOns}
+              setStep={setStep}
+              addOnsSelections={addOnsSelections}
+            />
+          )}
           {step === 5 && <Step5 />}
         </div>
         {step < 5 && (
@@ -45,7 +153,7 @@ export default function Home() {
           >
             {step > 1 && step < 5 && (
               <div
-                className=" inline-block cursor-pointer rounded-lg p-3 px-5 font-medium text-gray-cool"
+                className=" inline-block cursor-pointer rounded-lg p-3 px-5 font-medium text-gray-cool hover:text-blue-marine"
                 onClick={() => setStep(step - 1)}
               >
                 Go Back
@@ -56,28 +164,13 @@ export default function Home() {
                 className={`${
                   step < 4 ? "bg-blue-marine" : "bg-blue-purplish"
                 } inline-block cursor-pointer rounded-lg p-3 px-5 font-medium text-white`}
-                onClick={() => setStep(step + 1)}
+                onClick={handleNextStep}
               >
                 {step === 4 ? "Confirm" : "Next Step"}
               </div>
             )}
           </footer>
         )}
-      </div>
-      <div className="hidden">
-        Step 1 Your info Step 2 Select plan Step 3 Add-ons Step 4 Summary
-        Personal info Please provide your name, email address, and phone number.
-        Name e.g. Stephen King Email Address e.g. stephenking@lorem.com Phone
-        Number e.g. +1 234 567 890 Next Step Select your plan You have the
-        option of monthly or yearly billing. Arcade $9/mo Advanced $12/mo Pro
-        $15/mo Monthly Yearly Go Back Next Step Pick add-ons Add-ons help
-        enhance your gaming experience. Online service Access to multiplayer
-        games +$1/mo Larger storage Extra 1TB of cloud save +$2/mo Customizable
-        Profile Custom theme on your profile +$2/mo Go Back Next Step Finishing
-        up Double-check everything looks OK before confirming. Total (per
-        month/year) Go Back Confirm Thank you! Thanks for confirming your
-        subscription! We hope you have fun using our platform. If you ever need
-        support, please feel free to email us at support@loremgaming.com.
       </div>
     </main>
   );

@@ -1,30 +1,54 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import Image from "next/image";
 import { Switch } from "@/components/ui/switch";
+import { getPriceString } from "@/lib/utils";
 
-export default function Step2() {
-  const [billing, setBilling] = useState("yearly");
-  const [activePlan, setActivePlan] = useState("Arcade");
-  const plans = [
-    {
+interface Props {
+  selectedBilling: Billing;
+  selectedPlan: {
+    value: Plan;
+    amount: number;
+  };
+  setSelectedPlan: Dispatch<
+    SetStateAction<{
+      value: Plan;
+      amount: number;
+    }>
+  >;
+  setSelectedBilling: Dispatch<SetStateAction<Billing>>;
+}
+
+export default function Step2({
+  selectedBilling,
+  selectedPlan,
+  setSelectedPlan,
+  setSelectedBilling,
+}: Props) {
+  const [billing, setBilling] = useState(selectedBilling);
+  const [activePlan, setActivePlan] = useState(selectedPlan.value);
+  const plans = {
+    arcade: {
+      yearly: 90,
+      monthly: 9,
       name: "Arcade",
-      yearly: "$90/yr",
-      monthly: "$9/mo",
+      value: "arcade" as Plan,
       icon: "/images/icon-arcade.svg",
     },
-    {
+    advanced: {
+      yearly: 120,
+      monthly: 12,
       name: "Advanced",
-      yearly: "$120/yr",
-      monthly: "$12/mo",
+      value: "advanced" as Plan,
       icon: "/images/icon-advanced.svg",
     },
-    {
+    pro: {
+      yearly: 150,
+      monthly: 15,
       name: "Pro",
-      yearly: "$150/yr",
-      monthly: "$15/mo",
       icon: "/images/icon-pro.svg",
+      value: "pro" as Plan,
     },
-  ];
+  };
 
   return (
     <div id="step-2">
@@ -33,16 +57,22 @@ export default function Step2() {
         You have the option of monthly or yearly billing.
       </p>
       <div className="mt-6 flex flex-col gap-3">
-        {plans.map((plan) => (
+        {Object.values(plans).map((plan) => (
           <div
-            key={plan.name}
+            key={plan.value}
             className={
-              (plan.name === activePlan
+              (plan.value === activePlan
                 ? "border-blue-purplish bg-magnolia"
                 : "border-blue-pastel bg-white") +
               " flex rounded-lg border p-3 gap-3 hover:border-blue-purplish cursor-pointer focus-visible:border-blue-purplish"
             }
-            onClick={() => setActivePlan(plan.name)}
+            onClick={() => {
+              setActivePlan(plan.value);
+              setSelectedPlan({
+                value: plan.value,
+                amount: plan[billing],
+              });
+            }}
           >
             <Image
               src={plan.icon}
@@ -54,7 +84,7 @@ export default function Step2() {
             <div>
               <div className="font-semibold">{plan.name}</div>
               <div className={"text-sm tracking-tight text-gray-cool"}>
-                {billing === "yearly" ? plan.yearly : plan.monthly}
+                {getPriceString(plan[billing], billing)}
               </div>
               {billing === "yearly" && (
                 <div className="mt-1 text-xs tracking-tight">2 months free</div>
@@ -74,9 +104,15 @@ export default function Step2() {
           </div>
           <Switch
             checked={billing === "yearly"}
-            onCheckedChange={() =>
-              setBilling(billing === "yearly" ? "monthly" : "yearly")
-            }
+            onCheckedChange={() => {
+              const val = billing === "yearly" ? "monthly" : "yearly";
+              setBilling(val);
+              setSelectedBilling(val);
+              setSelectedPlan({
+                value: activePlan,
+                amount: plans[activePlan][val],
+              });
+            }}
           />
           <div
             className={`text-sm font-semibold tracking-tight ${
