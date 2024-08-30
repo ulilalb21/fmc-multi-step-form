@@ -61,16 +61,16 @@ export default function Step3({
       <p className="mt-3 text-base text-gray-cool">
         Add-ons help enhance your gaming experience.
       </p>
-      <div className={"flex flex-col gap-3 mt-6"}>
+      <div className={"mt-6 flex flex-col gap-3"}>
         {addOnsSelections.map(
           ({ value, name, description, yearly, monthly }) => (
             <div
               key={value}
               className={`${
                 addOns.includes(name)
-                  ? "bg-alabaster border-blue-purplish"
-                  : "bg-white border-blue-pastel"
-              } py-3 px-4 border rounded-lg cursor-pointer hover:border-blue-purplish`}
+                  ? "border-blue-purplish bg-alabaster"
+                  : "border-blue-pastel bg-white"
+              } cursor-pointer rounded-lg border px-4 py-3 hover:border-blue-purplish`}
               onClick={() => handleSelect({ value: name, yearly, monthly })}
             >
               <div className="flex items-center justify-between">
@@ -78,10 +78,10 @@ export default function Step3({
                   <Checkbox value={name} checked={addOns.includes(name)} />
                   <div>
                     <p className="text-sm font-bold">{name}</p>
-                    <p className="text-gray-cool text-xs">{description}</p>
+                    <p className="text-xs text-gray-cool">{description}</p>
                   </div>
                 </div>
-                <p className="text-blue-purplish font-medium text-sm">
+                <p className="text-sm font-medium text-blue-purplish">
                   +
                   {getPriceString(
                     selectedBilling === "yearly" ? yearly : monthly,

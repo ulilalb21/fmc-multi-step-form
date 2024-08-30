@@ -44,8 +44,11 @@ export default function Step4({
       return (
         <div className="pb-4">
           {selectedAddOns.map((addOn) => (
-            <div className="flex items-center justify-between pt-3">
-              <div className="text-gray-cool text-sm">{addOn.value}</div>
+            <div
+              key={addOn.value}
+              className="flex items-center justify-between pt-3"
+            >
+              <div className="text-sm text-gray-cool">{addOn.value}</div>
               <p className="text-blue-marine">
                 +
                 {getPriceString(
@@ -82,25 +85,25 @@ export default function Step4({
       >
         <div className="flex items-center justify-between py-4">
           <div>
-            <div className="text-blue-marine font-semibold text-sm">
+            <div className="text-sm font-semibold text-blue-marine">
               {toTitleCase(selectedPlan.value)} ({toTitleCase(selectedBilling)})
             </div>
             <div
               onClick={() => setStep(2)}
-              className="underline text-gray-cool text-sm cursor-pointer hover:text-blue-purplish"
+              className="cursor-pointer text-sm text-gray-cool underline hover:text-blue-purplish"
             >
               Change
             </div>
           </div>
-          <p className="text-blue-marine font-semibold">
+          <p className="font-semibold text-blue-marine">
             {getPriceString(selectedPlan.amount, selectedBilling)}
           </p>
         </div>
         <SectionAddOns />
       </div>
-      <div className="flex justify-between items-center px-4 mt-6">
-        <div className="text-gray-cool text-sm">Total (per month)</div>
-        <p className="text-blue-purplish font-bold">
+      <div className="mt-6 flex items-center justify-between px-4">
+        <div className="text-sm text-gray-cool">Total (per month)</div>
+        <p className="font-bold text-blue-purplish">
           +
           {getPriceString(
             selectedPlan.amount +

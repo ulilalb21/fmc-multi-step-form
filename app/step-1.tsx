@@ -28,7 +28,7 @@ export default function Step1({ onFormChange, errors, userData }: Props) {
         Please provide your name, email address, and phone number.
       </p>
       <div className="mt-6 grid w-full items-center gap-1.5">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <Label htmlFor="name">name</Label>
           {errors.name && (
             <Label className="text-red-strawberry">
@@ -54,7 +54,7 @@ export default function Step1({ onFormChange, errors, userData }: Props) {
         />
       </div>
       <div className="mt-6 grid w-full items-center gap-1.5">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <Label htmlFor="email">Email</Label>
           {errors.email && (
             <Label className="text-red-strawberry">
@@ -79,7 +79,7 @@ export default function Step1({ onFormChange, errors, userData }: Props) {
         />
       </div>
       <div className="mt-6 grid w-full items-center gap-1.5">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <Label htmlFor="phone">Phone Number</Label>
           {errors.phone && (
             <Label className="text-red-strawberry">
